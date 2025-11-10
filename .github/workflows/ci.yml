@@ -22,7 +22,7 @@ jobs: # Define os "trabalhos" que o workflow vai executar
       uses: docker/build-push-action@v4
       with:
         context: .  # Usa o contexto atual para o build
-        file: .
+        file: ./estagi-app/Dockerfile
         push: true # Define que a imagem será enviada para o registro
         tags: ${{ secrets.DOCKER_USERNAME }}/estagi-app:${{ github.sha }} # Define a tag da imagem
 

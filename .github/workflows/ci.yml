@@ -42,7 +42,7 @@ jobs:
 
     - name: Update image tag
       run: |
-        sed -i 's|image: .*|image: ${{ secrets.DOCKER_USERNAME }}apps/hello-app/deployment.yaml:${{ github.sha }}|' deployment.yaml
+        sed -i 's|image: .*|image: ${{ secrets.DOCKER_USERNAME }} . :${{ github.sha }}|' deployment.yaml
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4

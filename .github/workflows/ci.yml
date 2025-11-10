@@ -21,10 +21,10 @@ jobs: # Define os "trabalhos" que o workflow vai executar
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
-        context: ./hello-app # Usa o contexto atual para o build
-        file: ./hello-app/Dockerfile
+        context: ./estagi-app # Usa o contexto atual para o build
+        file: ./estagi-app/Dockerfile
         push: true # Define que a imagem será enviada para o registro
-        tags: ${{ secrets.DOCKER_USERNAME }}/hello-app:${{ github.sha }} # Define a tag da imagem
+        tags: ${{ secrets.DOCKER_USERNAME }}/estagi-app:${{ github.sha }} # Define a tag da imagem
 
   update-manifest: # Nome do segundo job
     needs: build # Este 2° job só roda depois que o 1° job 'build' terminar com sucesso
@@ -39,7 +39,7 @@ jobs: # Define os "trabalhos" que o workflow vai executar
 
     - name: Update image tag
       run: |
-        sed -i 's|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/hello-app:${{ github.sha }}|' deployment.yaml # Substitui a tag da imagem no arquivo de deployment
+        sed -i 's|image: .*|image: ${{ secrets.DOCKER_USERNAME }}./apps/hello-app:${{ github.sha }}|' deployment.yaml # Substitui a tag da imagem no arquivo de deployment
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
